@@ -6,6 +6,14 @@
 </head>
 <body>
     <h1>Welcome</h1>
+    Welcom {{ user.username }}
+    These are your active games:
+
+    <ul>
+        {% for g in games %}
+            <li>Game {{ g.id }}: {{ g.first_player }} vs. {{ g.second_player }} </li>
+        {% endfor %}
+    </ul>
     Hi! There are currently {{ ngames }} games in the database.
 </body>
 </html>
