@@ -1,15 +1,8 @@
-{% load staticfiles %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="{% static 'player/style.css' %}" rel="stylesheet">
-</head>
-<body>
+{% block content %}
     <h1>Welcome</h1>
-    Welcom {{ user.username }}
+    Welcome {{ user.username }}
     These are your active games:
 
     <ul>
@@ -18,5 +11,4 @@
         {% endfor %}
     </ul>
     Hi! There are currently {{ ngames }} games in the database.
-</body>
-</html>
+{% endblock %}
