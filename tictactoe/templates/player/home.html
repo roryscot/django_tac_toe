@@ -2,13 +2,17 @@
 
 {% block content %}
     <h1>Welcome</h1>
-    Welcome {{ user.username }}
+    <p>
+        <p>Welcome {{ user.username }}</p>
+        <p>There are currently {{ ngames }} games in the <database class=""></database></p>
+
     These are your active games:
+    </p>
 
     <ul>
         {% for g in games %}
             <li>Game {{ g.id }}: {{ g.first_player }} vs. {{ g.second_player }} </li>
         {% endfor %}
     </ul>
-    Hi! There are currently {{ ngames }} games in the database.
+
 {% endblock %}

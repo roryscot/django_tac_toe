@@ -21,4 +21,4 @@ def home (request):
     active_games = my_games.active()
 
     return render(request, "player/home.html",
-                  {'games': active_games })
+                  {'games': active_games, 'ngames': Game.objects.count() })
