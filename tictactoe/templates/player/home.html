@@ -5,15 +5,17 @@
 {% endblock %}
 
 {% block content %}
-    <h2 class="text-priamry">Welcome {{ user.username }}</h2>
+    <h2 class="text-primary">Welcome {{ user.username }}</h2>
 
     <div class="row">
         <div class="col-md-6">
-
             <h3>Active Games</h3>
-            <ul>
+
+            <ul class="list-group">
                 {% for g in games %}
-                    <li>Game {{ g.id }}: {{ g.first_player }} vs. {{ g.second_player }} </li>
+                <a href="{{ g.get_absolute_url }}" class="list-group-item">
+                    Game {{ g.id }}: &nbsp; &nbsp; &nbsp; {{ g.first_player }} vs. {{ g.second_player }}
+                </a>
                 {% endfor %}
             </ul>
 

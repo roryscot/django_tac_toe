@@ -2,6 +2,7 @@ from django.db import models
 # import default user class
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 GAME_STATUS_CHOICES = (
@@ -36,6 +37,9 @@ class Game(models.Model):
 
     #overwrite objects attribute that normally references the default manager
     objects = GamesQuerySet.as_manager()
+
+    def get_absolute_url(self):
+        return reverse('gameplay_detail', args=[self.id])
 
     def __str__(self):
         return "{0} vs {1}".format(
