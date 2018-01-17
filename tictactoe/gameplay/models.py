@@ -38,6 +38,15 @@ class Game(models.Model):
     #overwrite objects attribute that normally references the default manager
     objects = GamesQuerySet.as_manager()
 
+    def board(self):
+        '''Return a 2D list of Move objects, so someone can ask
+        for the state of a square at position [y][x]'''
+        BOARD_SIZE = 3
+        board = [[None for x in range(BOARD_SIZE)] for y in range(BOARD_SIZE)]
+        for move in self.move_set.all():
+            board[move.y][move.x] = move
+        return board
+
     def get_absolute_url(self):
         return reverse('gameplay_detail', args=[self.id])
 
@@ -51,7 +60,7 @@ class Move(models.Model):
     # (primary key field added by django)
     x = models.IntegerField()
     y = models.IntegerField()
-    comment = models.CharField(max_length=300, blank=True)
+    comment = models.CharField(max_length=300, blank=True )
 
     # who made the move?
     by_first_player = models.BooleanField()
@@ -60,3 +69,4 @@ class Move(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     # with django_2 the on_delete argum ent signifies that if the game
     # gets deleted, so do the related attributes (like moves)
+    by_first_player = models.BooleanField(editable=False)
