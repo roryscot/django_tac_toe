@@ -47,6 +47,10 @@ class Game(models.Model):
             board[move.y][move.x] = move
         return board
 
+    def is_users_move(self, user):
+        return (user == self.first_player and self.status == 'F') or \
+               (user == self.second_player and self.status == 'S')
+
     def get_absolute_url(self):
         return reverse('gameplay_detail', args=[self.id])
 
@@ -60,13 +64,13 @@ class Move(models.Model):
     # (primary key field added by django)
     x = models.IntegerField()
     y = models.IntegerField()
-    comment = models.CharField(max_length=300, blank=True )
+    comment = models.CharField(max_length=300, blank=True)
 
     # who made the move?
     by_first_player = models.BooleanField()
 
     # add relation from moves to games
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, editable=False)
     # with django_2 the on_delete argum ent signifies that if the game
     # gets deleted, so do the related attributes (like moves)
-    by_first_player = models.BooleanField(editable=False)
+    by_first_player = models.BooleanField(editable=False )
