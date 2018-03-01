@@ -10,10 +10,12 @@ from .models import Invitation
 def home (request):
     my_games = Game.objects.games_for_user(request.user)
     active_games = my_games.active()
+    finished_games = my_games.difference(active_games)
     invitations = request.user.invitations_received.all()
 
     return render(request, "player/home.html",
-                  {'games': active_games,
+                  {'active_games': active_games,
+                   'finished_games': finished_games,
                    'ngames': Game.objects.count(),
                    'invitations': invitations})
 
